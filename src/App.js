@@ -16,7 +16,7 @@ import CartPage from "./containers/CartPage/CartPage";
 import Checkout from "./containers/Checkout/Checkout";
 
 const App = function () {
-  const itemsPerPage = 12; // itemsPerPage
+  const itemsPerPage = 8; // itemsPerPage
   const products = useFeaturedProducts();
   const cartProducts = [];
   return (

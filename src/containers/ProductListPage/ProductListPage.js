@@ -1,27 +1,41 @@
-import Item from "../Item/Item";
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+import {useEffect, useState, React} from "react";
+import {useParams} from "react-router-dom";
 import "./ProductListPage.css";
 import SideBar from "../SideBar/SideBar";
+// eslint-disable-next-line import/no-cycle
 import PaginationBar from "../PaginationBar/PaginationBar";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import Item from "../Item/Item";
 
-function ProductListPage({
+const ProductListPage = function ({
   Categories,
   Products,
   itemsPerPage = 16,
   cartProducts,
 }) {
+  const getParamValueFromKey = searchKey => {
+    const params = new URLSearchParams(window.location.search);
+    // eslint-disable-next-line no-restricted-syntax
+    for (const [key, value] of params) {
+      if (key === searchKey) return value;
+    }
+    return null;
+  };
+
+  const pageString = getParamValueFromKey("page") || "1";
+
+  const page = parseInt(pageString, 10);
   let items = [];
-  let maxItems = 0;
-  let params = useParams();
-  const { isLoading } = Products;
+  const params = useParams();
+  const {isLoading} = Products;
   const [ItemsStates, updateItemsStates] = useState(items);
   const [CategoriesStates, updateCategoriesStates] = useState(Categories);
-  const changeCategoryState = (id) => {
-    let arr = [];
-    let arrCatSelecteds = [];
-    for (let i in CategoriesStates) {
-      let cat = CategoriesStates[i];
+  const changeCategoryState = id => {
+    const arr = [];
+    const arrCatSelecteds = [];
+    for (const i in CategoriesStates) {
+      const cat = CategoriesStates[i];
       if (cat.id === id) {
         cat.selected = !cat.selected;
       }
@@ -36,38 +50,11 @@ function ProductListPage({
     }
     updateCategoriesStates(arr);
 
-    //filtrar
+    // filtrar
     if (arrCatSelecteds.length !== 0) {
-      let arrItem = [];
-      for (let i in items) {
-        let it = items[i];
-        if (arrCatSelecteds.includes(it.data.category.id)) {
-          arrItem.push(it);
-        }
-      }
-      updateItemsStates(arrItem);
-    } else {
-      updateItemsStates(items);
-    }
-  };
-  const getSelectedCategories = () => {
-    let arrCatSelecteds = [];
-    for (let i in CategoriesStates) {
-      let cat = CategoriesStates[i];
-      if (cat.selected) {
-        arrCatSelecteds.push(cat.id);
-      }
-    }
-    return arrCatSelecteds;
-  };
-
-  const updateItems = () => {
-    let arrCatSelecteds = getSelectedCategories();
-    //filtrar
-    if (arrCatSelecteds.length !== 0) {
-      let arrItem = [];
-      for (let i in items) {
-        let it = items[i];
+      const arrItem = [];
+      for (const i in items) {
+        const it = items[i];
         if (arrCatSelecteds.includes(it.data.category.id)) {
           arrItem.push(it);
         }
@@ -79,9 +66,9 @@ function ProductListPage({
   };
 
   const borrarFiltros = () => {
-    let arr = [];
-    for (let i in CategoriesStates) {
-      let cat = CategoriesStates[i];
+    const arr = [];
+    for (const i in CategoriesStates) {
+      const cat = CategoriesStates[i];
 
       arr.push({
         name: cat.name,
@@ -95,8 +82,8 @@ function ProductListPage({
 
   useEffect(() => {
     if (params.id !== undefined) {
-      for (let i in CategoriesStates) {
-        let cat = CategoriesStates[i];
+      for (const i in CategoriesStates) {
+        const cat = CategoriesStates[i];
         if (cat.id === params.id) {
           changeCategoryState(params.id);
           params.id = null;
@@ -113,48 +100,53 @@ function ProductListPage({
     return <h1>Loading...</h1>;
   }
   items = Products.data.results;
-
-  let pages = Math.ceil(items.length / itemsPerPage);
+  let productCount = 0;
+  const pages = Math.ceil(items.length / itemsPerPage);
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column" }}
-      width="100%"
-    >
-      <div style={{ display: "flex", flexDirection: "row" }} >
-        <div >
+    <div style={{display: "flex", flexDirection: "column"}} width="100%">
+      <div style={{display: "flex", flexDirection: "row"}}>
+        <div>
           {ItemsStates.map((element, i) => {
-            if (i < itemsPerPage) maxItems = i;
-            if (i > itemsPerPage) return null;
-            return (
-              <div class="float-child">
-                <Item
-                  title={element.data.name}
-                  img={element.data.mainimage.url}
-                  desc={element.data.short_description}
-                  price={element.data.price}
-                  category={element.data.category.slug}
-                  id={element.id}
-                  cartProducts={cartProducts}
-                  stock={element.data.stock}
-                />
-              </div>
-            );
+            if (
+              i >= (page - 1) * itemsPerPage &&
+              // eslint-disable-next-line prettier/prettier
+              i < ((page - 1) * itemsPerPage) + itemsPerPage
+            ) {
+              // eslint-disable-next-line no-plusplus
+              productCount++;
+              return (
+                <div className="float-child">
+                  <Item
+                    title={element.data.name}
+                    img={element.data.mainimage.url}
+                    desc={element.data.short_description}
+                    price={element.data.price}
+                    category={element.data.category.slug}
+                    id={element.id}
+                    cartProducts={cartProducts}
+                    stock={element.data.stock}
+                  />
+                </div>
+              );
+            }
+            return null;
           })}
         </div>
-        <div class="CategoriesSideBar" rowSpan={maxItems}>
-          <SideBar
-            Categories={CategoriesStates}
-            event={changeCategoryState}
-          ></SideBar>
+        <div className="CategoriesSideBar" rowSpan={productCount}>
+          <SideBar Categories={CategoriesStates} event={changeCategoryState} />
           <br />
-          <button class="genericButton" onClick={borrarFiltros}>
+          <button
+            type="button"
+            className="genericButton"
+            onClick={borrarFiltros}
+          >
             Clear filters
           </button>
         </div>
       </div>
-      <PaginationBar pages={pages}></PaginationBar>
+      <PaginationBar pages={pages} page={page} />
     </div>
   );
-}
+};
 
 export default ProductListPage;

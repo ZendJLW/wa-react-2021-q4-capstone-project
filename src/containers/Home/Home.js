@@ -1,19 +1,22 @@
+import {NavLink} from "react-router-dom";
+import React from "react";
 import CategoriesSlider from "../CategoriesSlider/CategoriesSlider";
 import List from "../productList/ProductList";
-import BannerSlider from "./../Banner/BannerSlider";
-import { NavLink } from "react-router-dom";
+import BannerSlider from "../Banner/BannerSlider";
 
-const Home = ({ Banners, Categories, Products }) => {
+const Home = function ({Banners, Categories, Products}) {
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{display: "flex", flexDirection: "column"}}>
       <div>
-        <BannerSlider banners={Banners}></BannerSlider>
+        <BannerSlider banners={Banners} />
         <CategoriesSlider categories={Categories} />
-        <List Products={Products}></List>
+        <List Products={Products} />
       </div>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div style={{display: "flex", flexDirection: "row"}}>
         <NavLink to="/ProductList">
-          <button class="viewAllProductsButton">View all products</button>
+          <button type="button" className="viewAllProductsButton">
+            View all products
+          </button>
         </NavLink>
       </div>
     </div>

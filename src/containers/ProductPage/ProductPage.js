@@ -1,59 +1,73 @@
-import Button from "../Button/Button";
+/* eslint-disable no-restricted-syntax */
+import React, {useContext} from "react";
 import "./ProductPage.css";
-import { NavLink } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { useContext } from "react";
+import {NavLink, useParams} from "react-router-dom";
 import CartContext from "../../context/CartContext";
+import Button from "../Button/Button";
 
-function ProductPage(products) {
-  const { CartProducts, handleProducts } = useContext(CartContext);
-  const { getQtyInCart } = useContext(CartContext);
-  let params = useParams();
-  let idItem = params.id;
-  let results = products.Products.data.results;
-  let product = getProduct(results, idItem);
+function getProduct(products, id) {
+  for (const i in products) {
+    if (products[i].id === id) {
+      return products[i];
+    }
+  }
+  return null;
+}
+
+const ProductPage = function (products) {
+  const {handleProducts} = useContext(CartContext);
+  const {getQtyInCart} = useContext(CartContext);
+  const params = useParams();
+  const idItem = params.id;
+  // eslint-disable-next-line react/destructuring-assignment
+  const {results} = products.Products.data;
+  const product = getProduct(results, idItem);
   if (product === null)
     return (
       <div>
         <h1>Product not Found.</h1>
       </div>
     );
-  let title = product.data.name;
-  let img = product.data.mainimage.url;
-  let desc = product.data.short_description;
-  let price = product.data.price;
-  let category = product.data.category.slug;
-  let sku = product.data.sku;
-  let tags = product.tags;
-  let specs = product.data.specs;
-  let id = product.id;
-  let stock = product.data.stock;
+  const title = product.data.name;
+  const img = product.data.mainimage.url;
+  const desc = product.data.short_description;
+  const {price} = product.data;
+  const category = product.data.category.slug;
+  const {sku} = product.data;
+  const {tags} = product;
+  const {specs} = product.data;
+  const {id} = product;
+  const {stock} = product.data;
 
-  let productToHanlde = {
-    id: id,
-    title: title,
-    stock: stock,
-    category: category,
-    price: price,
-    desc: desc,
+  const productToHanlde = {
+    id,
+    title,
+    stock,
+    category,
+    price,
+    desc,
     qty: 1,
   };
 
   return (
-    <div class="ProductPageDivRow">
-      <div class="productPageCard">
-        <div class="productPagetitle">
-          <h1 class="productPagetitle">
+    <div className="ProductPageDivRow">
+      <div className="productPageCard">
+        <div className="productPagetitle">
+          <h1 className="productPagetitle">
             [{category}] {title}
           </h1>
           <h1> $ {price}</h1>
         </div>
 
-        <div class="ProductPageDivRow">
+        <div className="ProductPageDivRow">
           <div>
-            <img class="productPageitemimg" src={img} />
+            <img
+              className="productPageitemimg"
+              alt="productPageitemimg"
+              src={img}
+            />
           </div>
-          <div class="ProductPageDivColumn">
+          <div className="ProductPageDivColumn">
             <div>
               <h3>
                 Description: <p>{desc}</p>
@@ -63,8 +77,9 @@ function ProductPage(products) {
 
             <div>
               <h2>
-                Qty <input type="text" value={getQtyInCart(id)}></input>
+                Qty <input type="text" value={getQtyInCart(id)} />
                 <button
+                  type="button"
                   onClick={() => {
                     handleProducts(productToHanlde, 1);
                   }}
@@ -73,6 +88,7 @@ function ProductPage(products) {
                   +1
                 </button>
                 <button
+                  type="button"
                   onClick={() => {
                     handleProducts(productToHanlde, -1);
                   }}
@@ -85,14 +101,12 @@ function ProductPage(products) {
             <div>
               <h2>Tags: </h2>
               <h3>
-                {tags.map((element, i) => {
-                  return (
-                    <div>
-                      {"#"}
-                      {element}
-                    </div>
-                  );
-                })}
+                {tags.map(element => (
+                  <div>
+                    {"#"}
+                    {element}
+                  </div>
+                ))}
               </h3>
             </div>
 
@@ -105,36 +119,25 @@ function ProductPage(products) {
                   <strong>Spec description</strong>
                 </td>
               </tr>
-              {specs.map((element, i) => {
-                return (
-                  <tr>
-                    <td>{element.spec_name}</td>
-                    <td>{element.spec_value}</td>
-                  </tr>
-                );
-              })}
+              {specs.map(element => (
+                <tr>
+                  <td>{element.spec_name}</td>
+                  <td>{element.spec_value}</td>
+                </tr>
+              ))}
             </table>
             <br />
           </div>
         </div>
-        <div class="ProductPageDivRow">
+        <div className="ProductPageDivRow">
           &nbsp;
-          <NavLink to={"/home/"}>
-            <Button text={"Back to Home"} />
+          <NavLink to="/home/">
+            <Button text="Back to Home" />
           </NavLink>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default ProductPage;
-
-function getProduct(products, id) {
-  for (let i in products) {
-    if (products[i].id === id) {
-      return products[i];
-    }
-  }
-  return null;
-}

@@ -15,6 +15,7 @@
         }
       ],
       "import/prefer-default-export": "off",
-        "func-names":0
+        "func-names":0,
+        "react/prop-types": 0
     }
   }

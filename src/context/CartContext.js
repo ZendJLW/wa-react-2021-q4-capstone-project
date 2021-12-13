@@ -1,12 +1,13 @@
-import { useState, createContext } from "react";
+import {useState, createContext, React} from "react";
+
 const CartContext = createContext();
 
-const CartProvider = ({ children }) => {
+const CartProvider = function ({children}) {
   const [CartProducts, setProducts] = useState([]);
 
   const handleProducts = (product, qty) => {
     let existe = -1;
-    let products = [];
+    const products = [];
     CartProducts.forEach((element, i) => {
       if (element.id === product.id) {
         existe = i;
@@ -24,9 +25,9 @@ const CartProvider = ({ children }) => {
     setProducts(products);
   };
 
-  const getQtyInCart = (id) => {
+  const getQtyInCart = id => {
     let cont = 0;
-    CartProducts.forEach((element, i) => {
+    CartProducts.forEach(element => {
       if (id === element.id) {
         cont = element.qty;
       }
@@ -34,9 +35,10 @@ const CartProvider = ({ children }) => {
     return cont;
   };
 
-  const data = { CartProducts, handleProducts, getQtyInCart };
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
+  const data = {CartProducts, handleProducts, getQtyInCart};
   return <CartContext.Provider value={data}>{children}</CartContext.Provider>;
 };
 
-export { CartProvider };
+export {CartProvider};
 export default CartContext;

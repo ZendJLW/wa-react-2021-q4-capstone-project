@@ -1,12 +1,18 @@
 import "./Button.css";
+import React from "react";
 
-function Button({ text }) {
-  return <button class="genericButton">{text}</button>;
-}
-function EventButton({ text, event }) {
+const Button = function ({text}) {
+  return (
+    <button type="button" className="genericButton">
+      {text}
+    </button>
+  );
+};
+const EventButton = function ({text, event}) {
   return (
     <button
-      class="genericButtons"
+      type="button"
+      className="genericButtons"
       onClick={() => {
         event();
       }}
@@ -14,6 +20,6 @@ function EventButton({ text, event }) {
       {text}
     </button>
   );
-}
-export { EventButton };
+};
+export {EventButton};
 export default Button;

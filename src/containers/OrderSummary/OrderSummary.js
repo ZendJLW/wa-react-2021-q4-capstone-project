@@ -1,8 +1,8 @@
-import { useContext } from "react";
+import {useContext, React} from "react";
 import CartContext from "../../context/CartContext";
 
-const OrderSummary = () => {
-  const { CartProducts, handleProducts } = useContext(CartContext);
+const OrderSummary = function () {
+  const {CartProducts} = useContext(CartContext);
   let total = 0;
   let subtotal = 0;
   return (
@@ -23,7 +23,7 @@ const OrderSummary = () => {
           <h1>Subtotal</h1>
         </th>
       </tr>
-      {CartProducts.map((element, i) => {
+      {CartProducts.map(element => {
         subtotal = element.price * element.qty;
         total += subtotal;
         return (

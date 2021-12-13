@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+/* eslint-disable no-use-before-define */
+import React, {useState} from "react";
 import CategoriesItem from "../Categories/CategoriesItem";
 import "./CategoriesSlider.css";
 
-var timer = false;
-
-const CategoriesSlider = ({ categories }) => {
+const CategoriesSlider = function ({categories}) {
   const [current, setCurrent] = useState(0);
-  const { isLoading } = categories;
+  const {isLoading} = categories;
 
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
+  // eslint-disable-next-line no-param-reassign
   categories = categories.data;
 
-  const length = categories.results.length;
+  const {length} = categories.results;
 
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
@@ -28,39 +28,34 @@ const CategoriesSlider = ({ categories }) => {
   }
   setTimeout(() => {
     nextSlide();
-    timer = true;
   }, 5000);
 
   return (
     <section className="slider">
-      <table class="categoryslidertable">
+      <table className="categoryslidertable">
         <tr>
-          <th class="title" colSpan="5">
+          <th className="title" colSpan="5">
             Categories
           </th>
         </tr>
         <tr>
-          <td class="button">
-            <button className="left-arrow" onClick={prevSlide}>
+          <td className="button">
+            <button type="button" className="left-arrow" onClick={prevSlide}>
               prev category
             </button>
           </td>
-          <td class="category">
-            <CategoriesItem index={current}></CategoriesItem>
+          <td className="category">
+            <CategoriesItem index={current} />
           </td>
-          <td class="category">
-            <CategoriesItem
-              index={getNext(current, length, 1)}
-            ></CategoriesItem>
+          <td className="category">
+            <CategoriesItem index={getNext(current, length, 1)} />
           </td>
-          <td class="category">
-            <CategoriesItem
-              index={getNext(current, length, 2)}
-            ></CategoriesItem>
+          <td className="category">
+            <CategoriesItem index={getNext(current, length, 2)} />
           </td>
-          <td class="button">
+          <td className="button">
             {" "}
-            <button className="right-arrow" onClick={nextSlide}>
+            <button type="button" className="right-arrow" onClick={nextSlide}>
               next category
             </button>
           </td>

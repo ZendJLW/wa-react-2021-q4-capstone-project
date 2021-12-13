@@ -1,9 +1,11 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 import Categories from "../mocks/en-us/product-categories.json";
 
 function getCategories() {
   const cats = [];
-  for (let i in Categories.results) {
-    let cat = Categories.results[i];
+  for (const i in Categories.results) {
+    const cat = Categories.results[i];
 
     cats.push({
       name: cat.data.name,
@@ -14,4 +16,4 @@ function getCategories() {
   return cats;
 }
 
-export { getCategories };
+export {getCategories};

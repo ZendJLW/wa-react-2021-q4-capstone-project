@@ -1,4 +1,6 @@
-const CheckoutForm = () => {
+import React from "react";
+
+const CheckoutForm = function () {
   return (
     <table>
       <tr>
@@ -9,25 +11,25 @@ const CheckoutForm = () => {
       <tr>
         <td>Name</td>
         <td>
-          <input type="text"></input>
+          <input type="text" />
         </td>
       </tr>
       <tr>
         <td>Email</td>
         <td>
-          <input type="text"></input>
+          <input type="text" />
         </td>
       </tr>
       <tr>
         <td>ZipCode</td>
         <td>
-          <input type="text"></input>
+          <input type="text" />
         </td>
       </tr>
       <tr>
         <td>Notes</td>
         <td>
-          <textarea></textarea>
+          <textarea />
         </td>
       </tr>
     </table>
