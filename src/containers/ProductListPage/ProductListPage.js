@@ -31,14 +31,19 @@ const ProductListPage = function ({
   const {isLoading} = Products;
   const [ItemsStates, updateItemsStates] = useState(items);
   const [CategoriesStates, updateCategoriesStates] = useState(Categories);
-  const changeCategoryState = id => {
+  const changeCategoryState = (id, value, allOthers) => {
     const arr = [];
     const arrCatSelecteds = [];
     for (const i in CategoriesStates) {
       const cat = CategoriesStates[i];
       if (cat.id === id) {
-        cat.selected = !cat.selected;
+        if (value !== null) cat.selected = !cat.selected;
+        else cat.selected = value;
+      } else if (allOthers !== null && allOthers !== undefined) {
+        cat.selected = allOthers;
+        console.log(allOthers);
       }
+
       if (cat.selected) {
         arrCatSelecteds.push(cat.id);
       }
@@ -85,7 +90,7 @@ const ProductListPage = function ({
       for (const i in CategoriesStates) {
         const cat = CategoriesStates[i];
         if (cat.id === params.id) {
-          changeCategoryState(params.id);
+          changeCategoryState(params.id, true, false);
           params.id = null;
           break;
         }
