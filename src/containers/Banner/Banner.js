@@ -1,18 +1,18 @@
 import "./Banner.css";
 
-function Banner({ banner_img, banner_img_alt, banner_title }) {
+const Banner = function({ bannerImg, banner_img_alt, banner_title }) {
   return (
     <div>
-      <table class="bannertable">
-        <tr class="banner">
-          <td class="bannerlogo">
+      <table className="bannertable">
+        <tr className="banner">
+          <td className="bannerlogo">
             <img
-              src={banner_img}
+              src={bannerImg}
               alt={banner_img_alt}
-              class="bannerlogoimg"
-            ></img>
+              className="bannerlogoimg"
+             />
           </td>
-          <td class="bannertitle">
+          <td className="bannertitle">
             <h1> {banner_title} </h1>
           </td>
         </tr>

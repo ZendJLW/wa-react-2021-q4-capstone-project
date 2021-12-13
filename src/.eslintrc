@@ -1,15 +1,20 @@
 {
-  "extends": [
-    "react-app",
-    "airbnb",
-    "plugin:jsx-a11y/recommended",
-    "prettier",
-    "eslint-config-prettier"
-  ],
-  "plugins": ["jsx-a11y", "prettier"],
-  "rules": {
-    "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
-    "import/prefer-default-export": "off"
-      
+    "plugins": ["react", "prettier"],
+    "extends": ["react-app", "airbnb", "prettier"],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": false
+        }
+      ],
+      "react/jsx-filename-extension": [
+        "error",
+        {
+          "extensions": [".js", ".jsx"]
+        }
+      ],
+      "import/prefer-default-export": "off",
+        "func-names":0
     }
-}
+  }
