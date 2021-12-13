@@ -10,7 +10,10 @@ const PaginationBar = function ({pages, page}) {
   }
   return (
     <div className="pagination">
-      <a href={page - 1 > 0 ? `/ProductList/?page=${page - 1}` : "#"}>
+      <a
+        href={`/ProductList/?page=${page - 1}`}
+        className={page - 1 === 0 ? "isDisabled" : ""}
+      >
         {" "}
         &laquo;
       </a>
@@ -22,7 +25,10 @@ const PaginationBar = function ({pages, page}) {
           {i + 1}
         </a>
       ))}
-      <a href={page < pages ? `/ProductList/?page=${page + 1}` : "#"}>
+      <a
+        href={`/ProductList/?page=${page + 1}`}
+        className={pages > page ? "" : "isDisabled"}
+      >
         &raquo;
       </a>
     </div>
