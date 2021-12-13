@@ -22,7 +22,7 @@ function App() {
   let products = useFeaturedProducts();
   let cartProducts = [];
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: "flex", flexDirection: "column", width:"100%"}} >
       <BrowserRouter>
         <CartProvider>
           <Header title="MugiStore!" img_alt="MugiStore!" />
@@ -59,7 +59,7 @@ function App() {
                     itemsPerPage={itemsPerPage}
                     cartProducts={cartProducts}
                   />
-                }
+                } width="100%"
               >
                 <Route
                   path=":id"

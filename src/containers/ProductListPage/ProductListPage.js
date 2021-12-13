@@ -118,11 +118,10 @@ function ProductListPage({
   return (
     <div
       style={{ display: "flex", flexDirection: "column" }}
-      class="float-container"
       width="100%"
     >
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <div>
+      <div style={{ display: "flex", flexDirection: "row" }} >
+        <div >
           {ItemsStates.map((element, i) => {
             if (i < itemsPerPage) maxItems = i;
             if (i > itemsPerPage) return null;
