@@ -69,7 +69,9 @@ describe("Product List Page Tests", () => {
   });
 
   it("Prev button is disabled when the user is on the first page", () => {
-    render(<PaginationBar pages={5} page={1} />);
+    const pages = 5;
+    const actualPage = 1;
+    render(<PaginationBar pages={pages} page={actualPage} />);
     expect(screen.queryByTestId("prev").getAttribute("class")).toBe(
       "isDisabled",
     );
@@ -77,23 +79,27 @@ describe("Product List Page Tests", () => {
   });
 
   it("Next button is working as expected", () => {
+    const pages = 5;
     const actualPage = 4;
-    render(<PaginationBar pages={5} page={4} />);
+    render(<PaginationBar pages={pages} page={actualPage} />);
     expect(screen.queryByTestId("next").getAttribute("href")).toBe(
       `/ProductList/?page=${actualPage + 1}`,
     );
   });
 
   it("Prev button is working as expected", () => {
+    const pages = 5;
     const actualPage = 4;
-    render(<PaginationBar pages={5} page={4} />);
+    render(<PaginationBar pages={pages} page={actualPage} />);
     expect(screen.queryByTestId("prev").getAttribute("href")).toBe(
       `/ProductList/?page=${actualPage - 1}`,
     );
   });
 
   it("Next button is disabled when the user is on the last page", () => {
-    render(<PaginationBar pages={5} page={5} />);
+    const pages = 5;
+    const actualPage = 5;
+    render(<PaginationBar pages={pages} page={actualPage} />);
     expect(screen.queryByTestId("prev")).toBeEnabled();
     expect(screen.queryByTestId("next").getAttribute("class")).toBe(
       "isDisabled",
