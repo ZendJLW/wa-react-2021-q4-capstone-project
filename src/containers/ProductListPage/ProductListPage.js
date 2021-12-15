@@ -116,7 +116,7 @@ const ProductListPage = function ({
               // eslint-disable-next-line no-plusplus
               productCount++;
               return (
-                <div className="float-child">
+                <div key={element.id} className="float-child">
                   <Item
                     title={element.data.name}
                     img={element.data.mainimage.url}

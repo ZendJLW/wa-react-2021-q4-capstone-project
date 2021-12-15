@@ -1,10 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable spaced-comment */
 import React from "react";
-// import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {render, screen} from "@testing-library/react";
-import {rest} from "msw";
-import {setupServer} from "msw/node";
 import {BrowserRouter} from "react-router-dom";
 import BannerSlider from "../Banner/BannerSlider";
 import CategoriesSlider from "../CategoriesSlider/CategoriesSlider";
@@ -12,9 +9,6 @@ import List from "../productList/ProductList";
 import Banners from "../../mocks/en-us/featured-banners.json";
 import Products from "../../mocks/en-us/featured-products.json";
 import Categories from "../../mocks/en-us/product-categories.json";
-import {useFeaturedBanners} from "../../utils/hooks/useFeaturedBanners";
-import {useFeaturedProducts} from "../../utils/hooks/useFeaturedProducts";
-import {useFeaturedCategories} from "../../utils/hooks/useFeaturedCategories";
 import {CartProvider} from "../../context/CartContext";
 
 describe("Home Tests", () => {

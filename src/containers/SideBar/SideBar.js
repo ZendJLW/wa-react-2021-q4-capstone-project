@@ -12,6 +12,7 @@ const SideBar = function ({Categories, event}) {
 
       {Categories.map(element => (
         <div
+          key={element.name}
           className={element.selected ? "SideBarItemSelected" : "SideBarItem"}
           onClick={() => {
             event(element.id);
