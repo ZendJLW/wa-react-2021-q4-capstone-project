@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-restricted-syntax */
 import React, {useContext} from "react";
 import "./ProductPage.css";
@@ -14,11 +15,11 @@ function getProduct(products, id) {
   return null;
 }
 
-const ProductPage = function ({Products}) {
+const ProductPage = function ({Products, productId}) {
   const {handleProducts} = useContext(CartContext);
   const {getQtyInCart} = useContext(CartContext);
   const params = useParams();
-  const idItem = params.id;
+  const idItem = productId || params.id;
   const {results} = Products;
   const product = getProduct(results, idItem);
   if (product === null)
@@ -76,9 +77,16 @@ const ProductPage = function ({Products}) {
 
             <div>
               <h2>
-                Qty <input type="text" value={getQtyInCart(id)} />
+                Qty{" "}
+                <input
+                  type="text"
+                  data-testid="qty"
+                  value={getQtyInCart(id)}
+                  onChange={() => {}}
+                />
                 <button
                   type="button"
+                  data-testid="buttonPlusOne"
                   onClick={() => {
                     handleProducts(productToHanlde, 1);
                   }}
@@ -87,6 +95,7 @@ const ProductPage = function ({Products}) {
                   +1
                 </button>
                 <button
+                  data-testid="buttonMinusOne"
                   type="button"
                   onClick={() => {
                     handleProducts(productToHanlde, -1);
@@ -100,8 +109,8 @@ const ProductPage = function ({Products}) {
             <div>
               <h2>Tags: </h2>
               <h3>
-                {tags.map(element => (
-                  <div>
+                {tags.map((element, i) => (
+                  <div key={i}>
                     {"#"}
                     {element}
                   </div>
@@ -110,20 +119,22 @@ const ProductPage = function ({Products}) {
             </div>
 
             <table>
-              <tr>
-                <td>
-                  <strong>Spec</strong>
-                </td>
-                <td>
-                  <strong>Spec description</strong>
-                </td>
-              </tr>
-              {specs.map(element => (
+              <tbody>
                 <tr>
-                  <td>{element.spec_name}</td>
-                  <td>{element.spec_value}</td>
+                  <td>
+                    <strong>Spec</strong>
+                  </td>
+                  <td>
+                    <strong>Spec description</strong>
+                  </td>
                 </tr>
-              ))}
+                {specs.map((element, i) => (
+                  <tr key={i}>
+                    <td>{element.spec_name}</td>
+                    <td>{element.spec_value}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
             <br />
           </div>
