@@ -27,7 +27,6 @@ describe("Product Page Tests", () => {
   });
 
   it("Validate that the list of products is shown when there are items in the cart. Each row should contain the main image of the product, its name, unit price, a quantity selector, subtotal and a “remove from cart icon”.", async () => {
-
     render(
       <CartProvider>
         <BrowserRouter>
