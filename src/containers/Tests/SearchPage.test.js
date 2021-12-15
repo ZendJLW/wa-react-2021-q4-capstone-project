@@ -9,7 +9,7 @@ import {BrowserRouter, Route, Routes, MemoryRouter} from "react-router-dom";
 import Products from "../../mocks/en-us/featured-products.json";
 import Categories from "../../mocks/en-us/product-categories.json";
 import {CartProvider} from "../../context/CartContext";
-import SearchPage from "./SearchPage";
+import SearchPage from "../SearchPage/SearchPage";
 import Header from "../Header/Header";
 
 describe("Product Page Tests", () => {
@@ -33,9 +33,7 @@ describe("Product Page Tests", () => {
       );
     });
   });
-});
 
-describe("Product Page Tests", () => {
   it("Validate that an empty state is displayed when there are no results for the “searchTerm” provided.", async () => {
     const searchTerm = "asfasjabcoabc";
     render(

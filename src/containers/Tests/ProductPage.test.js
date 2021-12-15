@@ -9,7 +9,7 @@ import {BrowserRouter, Route, Routes, MemoryRouter} from "react-router-dom";
 import Products from "../../mocks/en-us/featured-products.json";
 import Categories from "../../mocks/en-us/product-categories.json";
 import {CartProvider} from "../../context/CartContext";
-import ProductPage from "./ProductPage";
+import ProductPage from "../ProductPage/ProductPage";
 import Header from "../Header/Header";
 
 describe("Product Page Tests", () => {

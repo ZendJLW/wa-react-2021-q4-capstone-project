@@ -33,9 +33,13 @@ const CartItemRow = function ({props}) {
   };
 
   return (
-    <div style={{display: "flex", flexDirection: "row"}} width="100%">
+    <div
+      style={{display: "flex", flexDirection: "row"}}
+      width="100%"
+      data-testid="cartItem"
+    >
       <div>
-        <h1 className="title">
+        <h1 className="title" id="name">
           [{category}]{title}
         </h1>
         <h1> $ {price} </h1>

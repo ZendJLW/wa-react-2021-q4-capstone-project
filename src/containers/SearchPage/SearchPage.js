@@ -38,7 +38,11 @@ const SearchPage = function ({Products, itemsPerPage = 20, q}) {
               itemCount++;
               if (i >= itemsPerPage) return null;
               return (
-                <div className="float-child" data-testid="item">
+                <div
+                  className="float-child"
+                  data-testid="item"
+                  key={element.id}
+                >
                   <Item
                     title={element.data.name}
                     img={element.data.mainimage.url}
