@@ -6,9 +6,6 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import {BrowserRouter} from "react-router-dom";
-import CategoriesSlider from "../CategoriesSlider/CategoriesSlider";
-import List from "../productList/ProductList";
-import Banners from "../../mocks/en-us/featured-banners.json";
 import Products from "../../mocks/en-us/featured-products.json";
 import Categories from "../../mocks/en-us/product-categories.json";
 import {CartProvider} from "../../context/CartContext";
