@@ -1,33 +1,45 @@
-import EventButton from "../Button/Button";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import "./Item.css";
-import { useContext } from "react";
+import {useContext, React} from "react";
 import CartContext from "../../context/CartContext";
+import Button from "../Button/Button";
 
-function Item({ img, category, title, price, id, showDesc, desc, stock }) {
-  const { CartProducts, handleProducts } = useContext(CartContext);
-  const { getQtyInCart } = useContext(CartContext);
+const Item = function ({
+  img,
+  category,
+  title,
+  price,
+  id,
+  showDesc,
+  desc,
+  stock,
+  alt,
+}) {
+  // eslint-disable-next-line no-unused-vars
+  const {CartProducts, handleProducts} = useContext(CartContext);
+  const {getQtyInCart} = useContext(CartContext);
   const addToCart = () => {
-    //alert("lmao");
+    // alert("lmao");
     handleProducts(
       {
-        id: id,
-        title: title,
-        stock: stock,
-        category: category,
-        price: price,
-        desc: desc,
+        id,
+        title,
+        stock,
+        category,
+        price,
+        desc,
         qty: 1,
-        img: img,
+        img,
+        alt,
       },
-      1
+      1,
     );
   };
 
   return (
-    <div class="card">
-      <div class="title">
-        <h1 class="title">
+    <div className="card">
+      <div className="title">
+        <h1 className="itemName">
           [{category}]{title}
         </h1>
         <h1> $ {price} </h1>{" "}
@@ -36,20 +48,24 @@ function Item({ img, category, title, price, id, showDesc, desc, stock }) {
           [On Stock: {stock}] [On Cart:{getQtyInCart(id)}]
         </h2>
       </div>
-      <img class="itemimg" alt="iteming" src={img} />
+      <img className="itemimg" alt={alt} src={img} />
 
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <button onClick={addToCart} disabled={getQtyInCart(id) >= stock}>
+      <div style={{display: "flex", flexDirection: "row"}}>
+        <button
+          type="button"
+          onClick={addToCart}
+          disabled={getQtyInCart(id) >= stock}
+        >
           Add To Cart
         </button>
         <br />
         &nbsp;
-        <NavLink to={"/Product/" + id}>
-          <EventButton text={"See More"} />
+        <NavLink to={`/Product/${id}`}>
+          <Button text="See More" />
         </NavLink>
       </div>
       <div>{showDesc ? <h3>{desc}</h3> : ""}</div>
     </div>
   );
-}
+};
 export default Item;

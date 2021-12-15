@@ -1,40 +1,45 @@
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import "./CartItemRow.css";
-import { useContext } from "react";
-import CartContext, { CartProvider } from "../../context/CartContext";
+import React, {useContext} from "react";
+import CartContext from "../../context/CartContext";
 
-function CartItemRow({ props }) {
-  const { CartProducts, handleProducts } = useContext(CartContext);
-  const { getQtyInCart } = useContext(CartContext);
+const CartItemRow = function ({props}) {
+  // eslint-disable-next-line no-unused-vars
+  const {CartProducts, handleProducts} = useContext(CartContext);
+  const {getQtyInCart} = useContext(CartContext);
 
-  let img = props.img,
-    category = props.category,
-    title = props.title,
-    price = props.price,
-    id = props.id,
-    showDesc = props.showDesc,
-    desc = props.desc,
-    stock = props.stock;
-  const addToCart = (qty) => {
+  const {img} = props;
+  const {category} = props;
+  const {title} = props;
+  const {price} = props;
+  const {id} = props;
+  const {showDesc} = props;
+  const {desc} = props;
+  const {stock} = props;
+  const addToCart = qty => {
     handleProducts(
       {
-        id: id,
-        title: title,
-        stock: stock,
-        category: category,
-        price: price,
-        desc: desc,
+        id,
+        title,
+        stock,
+        category,
+        price,
+        desc,
         qty: 1,
-        img: img,
+        img,
       },
-      qty
+      qty,
     );
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "row" }} width="100%">
+    <div
+      style={{display: "flex", flexDirection: "row"}}
+      width="100%"
+      data-testid="cartItem"
+    >
       <div>
-        <h1 class="title">
+        <h1 className="title" id="name">
           [{category}]{title}
         </h1>
         <h1> $ {price} </h1>
@@ -43,12 +48,13 @@ function CartItemRow({ props }) {
           [On Stock: {stock}] [On Cart:{getQtyInCart(id)}]
         </h2>
       </div>
-      <img class="itemimg" alt="iteming" src={img} />
+      <img className="itemimg" alt="iteming" src={img} />
 
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{display: "flex", flexDirection: "column"}}>
         <div>
-          Qty <input type="text" value={getQtyInCart(id)}></input>
+          Qty <input type="text" value={getQtyInCart(id)} />
           <button
+            type="button"
             onClick={() => {
               addToCart(1);
             }}
@@ -57,6 +63,7 @@ function CartItemRow({ props }) {
             +1
           </button>
           <button
+            type="button"
             onClick={() => {
               addToCart(-1);
             }}
@@ -67,12 +74,12 @@ function CartItemRow({ props }) {
         </div>
         <br />
         &nbsp;
-        <NavLink to={"/Product/" + id}>
-          <button>See More</button>
+        <NavLink to={`/Product/${id}`}>
+          <button type="button">See More</button>
         </NavLink>
       </div>
       <div>{showDesc ? <h3>{desc}</h3> : ""}</div>
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{display: "flex", flexDirection: "column"}}>
         <div>
           <h1>Subtotal for this item</h1>
         </div>
@@ -82,5 +89,5 @@ function CartItemRow({ props }) {
       </div>
     </div>
   );
-}
+};
 export default CartItemRow;

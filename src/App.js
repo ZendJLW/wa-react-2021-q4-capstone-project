@@ -1,28 +1,45 @@
 import "./App.css";
-import { useFeaturedBanners } from "./utils/hooks/useFeaturedBanners";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import React from "react";
+import {useFeaturedBanners} from "./utils/hooks/useFeaturedBanners";
 import Footer from "./containers/Banner/Footer";
-import Banners from "./mocks/en-us/featured-banners.json";
 import Header from "./containers/Header/Header";
-import React, { useState } from "react";
 import Home from "./containers/Home/Home";
-import { getCategories } from "./utils/getData";
+import {getCategories} from "./utils/getData";
 import ProductListPage from "./containers/ProductListPage/ProductListPage";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useFeaturedCategories } from "./utils/hooks/useFeaturedCategories";
-import { useFeaturedProducts } from "./utils/hooks/useFeaturedProducts";
-import { renderIntoDocument } from "react-dom/test-utils";
+import {useFeaturedCategories} from "./utils/hooks/useFeaturedCategories";
+import {useFeaturedProducts} from "./utils/hooks/useFeaturedProducts";
 import ProductPage from "./containers/ProductPage/ProductPage";
 import SearchPage from "./containers/SearchPage/SearchPage";
-import CartContext, { CartProvider } from "./context/CartContext";
+import {CartProvider} from "./context/CartContext";
 import CartPage from "./containers/CartPage/CartPage";
 import Checkout from "./containers/Checkout/Checkout";
 
-function App() {
-  let itemsPerPage = 12; //itemsPerPage
-  let products = useFeaturedProducts();
-  let cartProducts = [];
+const App = function () {
+  const itemsPerPage = 8; // itemsPerPage
+  // const products = useFeaturedProducts();
+  const cartProducts = [];
+
+  const {data: banners, isLoading: bannersIsLoading} = useFeaturedBanners();
+  const {data: products, isLoading: productsIsLoading} = useFeaturedProducts();
+  const {data: cats, isLoading: categoriesIsLoading} = useFeaturedCategories();
+
+  if (bannersIsLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (productsIsLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (categoriesIsLoading) {
+    return <h1>Loading...</h1>;
+  }
+  console.log(cats, categoriesIsLoading, bannersIsLoading);
+  const categories = getCategories(cats);
+
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{display: "flex", flexDirection: "column", width: "100%"}}>
       <BrowserRouter>
         <CartProvider>
           <Header title="MugiStore!" img_alt="MugiStore!" />
@@ -32,40 +49,41 @@ function App() {
               path="/"
               element={
                 <Home
-                  Banners={useFeaturedBanners()}
-                  Categories={useFeaturedCategories()}
-                  Products={useFeaturedProducts()}
+                  Banners={banners}
+                  Categories={categories}
+                  Products={products}
                 />
               }
             />
             <Route
-              path={"/home"}
+              path="/home"
               element={
                 <Home
-                  Banners={useFeaturedBanners()}
-                  Categories={useFeaturedCategories()}
-                  Products={useFeaturedProducts()}
+                  Banners={banners}
+                  Categories={categories}
+                  Products={products}
                 />
               }
             />
 
-            {["/ProductList", "/Products"].map((path, index) => (
+            {["/ProductList", "/Products"].map(path => (
               <Route
                 path={path}
                 element={
                   <ProductListPage
-                    Categories={getCategories()}
+                    Categories={categories}
                     Products={products}
                     itemsPerPage={itemsPerPage}
                     cartProducts={cartProducts}
                   />
                 }
+                width="100%"
               >
                 <Route
                   path=":id"
                   element={
                     <ProductListPage
-                      Categories={getCategories()}
+                      Categories={categories}
                       Products={products}
                       itemsPerPage={itemsPerPage}
                       cartProducts={cartProducts}
@@ -77,21 +95,18 @@ function App() {
 
             <Route
               path="/search"
-              element={<SearchPage Products={useFeaturedProducts()} />}
-            ></Route>
+              element={<SearchPage Products={products} />}
+            />
 
-            <Route path="/cart" element={<CartPage />}></Route>
+            <Route path="/cart" element={<CartPage />} />
 
-            <Route path="/checkout" element={<Checkout />}></Route>
+            <Route path="/checkout" element={<Checkout />} />
 
             <Route
               path="/Product"
-              element={<ProductPage Products={useFeaturedProducts()} />}
+              element={<ProductPage Products={products} />}
             >
-              <Route
-                path=":id"
-                element={<ProductPage Products={useFeaturedProducts()} />}
-              />
+              <Route path=":id" element={<ProductPage Products={products} />} />
             </Route>
 
             <Route
@@ -105,9 +120,9 @@ function App() {
           </Routes>
         </CartProvider>
       </BrowserRouter>
-      <Footer text="Ecommerce created during Wizeline’s Academy React Bootcamp"></Footer>
+      <Footer text="Ecommerce created during Wizeline’s Academy React Bootcamp" />
     </div>
   );
-}
+};
 
 export default App;

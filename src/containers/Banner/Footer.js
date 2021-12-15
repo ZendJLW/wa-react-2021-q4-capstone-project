@@ -1,18 +1,18 @@
 import "./Banner.css";
+import React from "react";
 
-function Footer(props) {
-  const footer_text = props.text;
+const Footer = function ({text}) {
   return (
     <div>
-      <table class="bannertable">
-        <tr class="banner">
-          <td class="bannertitle">
-            <h1> {footer_text} </h1>
+      <table className="bannertable">
+        <tr className="banner">
+          <td className="bannertitle">
+            <h1> {text} </h1>
           </td>
         </tr>
       </table>
     </div>
   );
-}
+};
 
 export default Footer;

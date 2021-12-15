@@ -24,3 +24,8 @@ yarn-error.log*
 
 # Local Netlify folder
 .netlify
+
+ProductListPage.tests.js
+BannerSlider.tests.js
+
+.eslintrc

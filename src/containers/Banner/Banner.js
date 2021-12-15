@@ -1,24 +1,27 @@
 import "./Banner.css";
+import React from "react";
 
-function Banner({ banner_img, banner_img_alt, banner_title }) {
+const Banner = function ({bannerImg, bannerImgAlt, bannerTitle}) {
   return (
     <div>
-      <table class="bannertable">
-        <tr class="banner">
-          <td class="bannerlogo">
-            <img
-              src={banner_img}
-              alt={banner_img_alt}
-              class="bannerlogoimg"
-            ></img>
-          </td>
-          <td class="bannertitle">
-            <h1> {banner_title} </h1>
-          </td>
-        </tr>
+      <table className="bannertable">
+        <tbody>
+          <tr className="banner">
+            <td className="bannerlogo">
+              <img
+                src={bannerImg}
+                alt={bannerImgAlt}
+                className="bannerlogoimg"
+              />
+            </td>
+            <td className="bannertitle">
+              <h1> {bannerTitle} </h1>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   );
-}
+};
 
 export default Banner;
