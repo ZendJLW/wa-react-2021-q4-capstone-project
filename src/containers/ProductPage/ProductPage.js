@@ -14,13 +14,12 @@ function getProduct(products, id) {
   return null;
 }
 
-const ProductPage = function (products) {
+const ProductPage = function ({Products}) {
   const {handleProducts} = useContext(CartContext);
   const {getQtyInCart} = useContext(CartContext);
   const params = useParams();
   const idItem = params.id;
-  // eslint-disable-next-line react/destructuring-assignment
-  const {results} = products.Products.data;
+  const {results} = Products;
   const product = getProduct(results, idItem);
   if (product === null)
     return (

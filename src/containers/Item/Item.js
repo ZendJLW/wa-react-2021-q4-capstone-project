@@ -13,6 +13,7 @@ const Item = function ({
   showDesc,
   desc,
   stock,
+  alt,
 }) {
   // eslint-disable-next-line no-unused-vars
   const {CartProducts, handleProducts} = useContext(CartContext);
@@ -29,6 +30,7 @@ const Item = function ({
         desc,
         qty: 1,
         img,
+        alt,
       },
       1,
     );
@@ -46,7 +48,7 @@ const Item = function ({
           [On Stock: {stock}] [On Cart:{getQtyInCart(id)}]
         </h2>
       </div>
-      <img className="itemimg" alt="iteming" src={img} />
+      <img className="itemimg" alt={alt} src={img} />
 
       <div style={{display: "flex", flexDirection: "row"}}>
         <button

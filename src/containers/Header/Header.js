@@ -1,6 +1,6 @@
 import "./Header.css";
 import {useState, useContext, React} from "react";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import shoppingCart from "../../imgs/shoppingCart.png";
 import CartContext from "../../context/CartContext";
 import logo from "../../imgs/mugiwara.jpg";
@@ -8,17 +8,11 @@ import logo from "../../imgs/mugiwara.jpg";
 const Header = function ({imgAlt, title}) {
   const {CartProducts} = useContext(CartContext);
 
-  const navigate = useNavigate();
   const img = logo;
   const [searchValue, searchValueState] = useState("");
 
   const changeSearchValue = event => {
     searchValueState(event.target.value);
-  };
-
-  const redirect = () => {
-    navigate("/home", {replace: true});
-    navigate(`/search?q=${searchValue}`, {replace: true});
   };
 
   const getTotalCartItems = () => {
@@ -51,8 +45,8 @@ const Header = function ({imgAlt, title}) {
       <div className="search">
         Search <input id="SearchInput" onChange={changeSearchValue} />
         &nbsp;
-        <button type="button" onClick={redirect}>
-          Search
+        <button type="button">
+          <a href={`/search?q=${searchValue}`}>Search</a>
         </button>
       </div>
     </div>

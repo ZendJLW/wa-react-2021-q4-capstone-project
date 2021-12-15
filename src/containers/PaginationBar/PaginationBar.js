@@ -9,7 +9,7 @@ const PaginationBar = function ({pages, page}) {
     arrayPages.push(1);
   }
   return (
-    <div className="pagination">
+    <div className="pagination" data-testid="paginationBar">
       <a
         href={`/ProductList/?page=${page - 1}`}
         className={page - 1 === 0 ? "isDisabled" : ""}

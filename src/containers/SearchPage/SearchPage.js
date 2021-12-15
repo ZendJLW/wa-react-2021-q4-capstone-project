@@ -4,11 +4,11 @@ import Item from "../Item/Item";
 import "./SearchPage.css";
 
 const SearchPage = function ({Products, itemsPerPage = 20}) {
-  const {isLoading} = Products;
+  // const {isLoading} = Products;
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
+  // if (isLoading) {
+  // return <h1>Loading...</h1>;
+  // }
   const getParamValueFromKey = searchKey => {
     const params = new URLSearchParams(window.location.search);
     // eslint-disable-next-line no-restricted-syntax
@@ -21,7 +21,7 @@ const SearchPage = function ({Products, itemsPerPage = 20}) {
   let searchTerm = getParamValueFromKey("q");
 
   searchTerm = searchTerm.toUpperCase();
-  const items = Products.data.results;
+  const items = Products.results;
   let itemCount = 0;
   return (
     <div

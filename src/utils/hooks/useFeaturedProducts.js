@@ -27,7 +27,6 @@ export function useFeaturedProducts() {
           },
         );
         const data = await response.json();
-
         setFeaturedProducts({data, isLoading: false});
       } catch (err) {
         setFeaturedProducts({data: {}, isLoading: false});

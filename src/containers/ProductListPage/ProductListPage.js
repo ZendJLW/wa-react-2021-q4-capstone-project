@@ -28,7 +28,6 @@ const ProductListPage = function ({
   const page = parseInt(pageString, 10);
   let items = [];
   const params = useParams();
-  const {isLoading} = Products;
   const [ItemsStates, updateItemsStates] = useState(items);
   const [CategoriesStates, updateCategoriesStates] = useState(Categories);
   const changeCategoryState = (id, value, allOthers) => {
@@ -101,10 +100,7 @@ const ProductListPage = function ({
     }
   });
 
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
-  items = Products.data.results;
+  items = Products.results;
   let productCount = 0;
   const pages = Math.ceil(items.length / itemsPerPage);
   return (

@@ -17,8 +17,27 @@ import Checkout from "./containers/Checkout/Checkout";
 
 const App = function () {
   const itemsPerPage = 8; // itemsPerPage
-  const products = useFeaturedProducts();
+  // const products = useFeaturedProducts();
   const cartProducts = [];
+
+  const {data: banners, isLoading: bannersIsLoading} = useFeaturedBanners();
+  const {data: products, isLoading: productsIsLoading} = useFeaturedProducts();
+  const {data: cats, isLoading: categoriesIsLoading} = useFeaturedCategories();
+
+  if (bannersIsLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (productsIsLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (categoriesIsLoading) {
+    return <h1>Loading...</h1>;
+  }
+  console.log(cats, categoriesIsLoading, bannersIsLoading);
+  const categories = getCategories(cats);
+
   return (
     <div style={{display: "flex", flexDirection: "column", width: "100%"}}>
       <BrowserRouter>
@@ -30,9 +49,9 @@ const App = function () {
               path="/"
               element={
                 <Home
-                  Banners={useFeaturedBanners()}
-                  Categories={useFeaturedCategories()}
-                  Products={useFeaturedProducts()}
+                  Banners={banners}
+                  Categories={categories}
+                  Products={products}
                 />
               }
             />
@@ -40,9 +59,9 @@ const App = function () {
               path="/home"
               element={
                 <Home
-                  Banners={useFeaturedBanners()}
-                  Categories={useFeaturedCategories()}
-                  Products={useFeaturedProducts()}
+                  Banners={banners}
+                  Categories={categories}
+                  Products={products}
                 />
               }
             />
@@ -52,7 +71,7 @@ const App = function () {
                 path={path}
                 element={
                   <ProductListPage
-                    Categories={getCategories()}
+                    Categories={categories}
                     Products={products}
                     itemsPerPage={itemsPerPage}
                     cartProducts={cartProducts}
@@ -64,7 +83,7 @@ const App = function () {
                   path=":id"
                   element={
                     <ProductListPage
-                      Categories={getCategories()}
+                      Categories={categories}
                       Products={products}
                       itemsPerPage={itemsPerPage}
                       cartProducts={cartProducts}
@@ -76,7 +95,7 @@ const App = function () {
 
             <Route
               path="/search"
-              element={<SearchPage Products={useFeaturedProducts()} />}
+              element={<SearchPage Products={products} />}
             />
 
             <Route path="/cart" element={<CartPage />} />
@@ -85,12 +104,9 @@ const App = function () {
 
             <Route
               path="/Product"
-              element={<ProductPage Products={useFeaturedProducts()} />}
+              element={<ProductPage Products={products} />}
             >
-              <Route
-                path=":id"
-                element={<ProductPage Products={useFeaturedProducts()} />}
-              />
+              <Route path=":id" element={<ProductPage Products={products} />} />
             </Route>
 
             <Route
