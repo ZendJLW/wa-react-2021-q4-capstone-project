@@ -27,3 +27,5 @@ yarn-error.log*
 
 ProductListPage.tests.js
 BannerSlider.tests.js
+
+.eslintrc
