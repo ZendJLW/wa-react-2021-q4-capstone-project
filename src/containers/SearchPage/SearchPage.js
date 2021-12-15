@@ -3,7 +3,7 @@ import PaginationBar from "../PaginationBar/PaginationBar";
 import Item from "../Item/Item";
 import "./SearchPage.css";
 
-const SearchPage = function ({Products, itemsPerPage = 20}) {
+const SearchPage = function ({Products, itemsPerPage = 20, q}) {
   // const {isLoading} = Products;
 
   // if (isLoading) {
@@ -18,7 +18,7 @@ const SearchPage = function ({Products, itemsPerPage = 20}) {
     return null;
   };
 
-  let searchTerm = getParamValueFromKey("q");
+  let searchTerm = getParamValueFromKey("q") || q;
 
   searchTerm = searchTerm.toUpperCase();
   const items = Products.results;
@@ -38,7 +38,7 @@ const SearchPage = function ({Products, itemsPerPage = 20}) {
               itemCount++;
               if (i >= itemsPerPage) return null;
               return (
-                <div className="float-child">
+                <div className="float-child" data-testid="item">
                   <Item
                     title={element.data.name}
                     img={element.data.mainimage.url}

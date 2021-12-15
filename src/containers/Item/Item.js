@@ -39,7 +39,7 @@ const Item = function ({
   return (
     <div className="card">
       <div className="title">
-        <h1 className="title">
+        <h1 className="itemName">
           [{category}]{title}
         </h1>
         <h1> $ {price} </h1>{" "}
